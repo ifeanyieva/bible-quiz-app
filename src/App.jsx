@@ -1,13 +1,19 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import Quiz from "./pages/Quiz";
+import VerseLookup from "./pages/VerseLookup";
+import About from "./pages/About";
 
 function App() {
   return (
-    <h1 className="text-3xl font-bold text-center text-blue-600 mt-10">
-      Hello Bible Quiz!
-    </h1>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/quiz" element={<Quiz />} />
+        <Route path="/verse" element={<VerseLookup />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
+    </Router>
   );
 }
 
