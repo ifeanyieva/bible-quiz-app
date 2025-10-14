@@ -1,4 +1,17 @@
 import DailyVerse from "../components/DailyVerse";
+import VerseLookupForm from "../components/VerseLookupForm";
+
+const Home = () => {
+  return (
+    <div>
+      <DailyVerse />
+      <VerseLookupForm />
+    </div>
+  );
+};
+
+export default Home;
+import DailyVerse from "../components/DailyVerse";
 
 const Home = () => {
   return (

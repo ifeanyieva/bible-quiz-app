@@ -5,75 +5,72 @@ const DailyVerse = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // ✅ List of random verses to pick from
-  const randomVerses = [
-    "John 3:16",
-    "Psalm 23:1",
-    "Romans 8:28",
-    "Proverbs 3:5",
-    "Isaiah 40:31",
-    "Philippians 4:13",
-    "Genesis 1:1",
-    "Matthew 5:9",
-    "1 Corinthians 13:4",
-    "Psalm 27:1",
+  const API_KEY = import.meta.env.VITE_BIBLE_API_KEY;
+  const BIBLE_ID = "de4e12af7f28f599-02"; // KJV
+
+  // A list of references we can pick from (to simulate daily/random verse)
+  const sampleReferences = [
+    "JHN.3.16",
+    "PSA.23.1",
+    "ROM.8.28",
+    "ISA.41.10",
+    "PHI.4.13",
+    "PRO.3.5",
+    "MAT.5.9",
   ];
 
-  const fetchVerse = async () => {
-    setLoading(true);
-    setError(null);
-
-    try {
-      const randomRef = randomVerses[Math.floor(Math.random() * randomVerses.length)];
-      const apiKey = import.meta.env.VITE_API_BIBLE_KEY;
-
-      const response = await fetch(
-        `https://api.scripture.api.bible/v1/bibles/de4e12af7f28f599-02/passages/${encodeURIComponent(randomRef)}?content-type=text`,
-        {
-          headers: { "api-key": apiKey },
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to fetch verse");
-      }
-
-      const data = await response.json();
-      setVerse({
-        reference: data.data.reference,
-        content: data.data.content.replace(/<[^>]*>?/gm, ""), // remove HTML tags
-      });
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const getRandomRef = () =>
+    sampleReferences[Math.floor(Math.random() * sampleReferences.length)];
 
   useEffect(() => {
+    const fetchVerse = async () => {
+      setLoading(true);
+      setError(null);
+
+      try {
+        const randomRef = getRandomRef();
+        const response = await fetch(
+          `https://api.scripture.api.bible/v1/bibles/${BIBLE_ID}/verses/${randomRef}`,
+          {
+            headers: {
+              "api-key": API_KEY,
+            },
+          }
+        );
+
+        if (!response.ok) throw new Error("Failed to fetch verse");
+
+        const data = await response.json();
+        setVerse(data.data);
+      } catch (err) {
+        console.error(err);
+        setError("Unable to fetch verse. Check your API key or connection.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
     fetchVerse();
   }, []);
 
   return (
-    <div className="max-w-xl mx-auto bg-white rounded-xl shadow-md p-6 text-center">
-      <h2 className="text-2xl font-bold text-blue-700 mb-3">🌿 Verse of the Day</h2>
+    <div className="max-w-2xl mx-auto bg-white p-6 mt-10 shadow-md rounded-2xl">
+      <h2 className="text-2xl font-bold text-center text-blue-700 mb-4">
+        📖 Verse of the Day
+      </h2>
 
-      {loading && <p className="text-gray-500">Loading verse...</p>}
-      {error && <p className="text-red-600">Error: {error}</p>}
+      {loading && <p className="text-center text-gray-500">Loading...</p>}
+      {error && <p className="text-center text-red-600">{error}</p>}
 
       {verse && (
-        <div>
-          <p className="text-lg text-gray-700 italic mb-2">{verse.content}</p>
-          <p className="font-semibold text-blue-600">{verse.reference}</p>
+        <div className="text-center">
+          <h3 className="font-semibold text-lg mb-2">{verse.reference}</h3>
+          <p
+            className="text-gray-700 italic"
+            dangerouslySetInnerHTML={{ __html: verse.content }}
+          />
         </div>
       )}
-
-      <button
-        onClick={fetchVerse}
-        className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
-      >
-        🔁 Get Another Verse
-      </button>
     </div>
   );
 };
