@@ -1,23 +1,27 @@
+// src/App.jsx
+import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import NavBar from "./components/Navbar";
+import NavBar from "./components/NavBar";
 import DailyVerse from "./components/DailyVerse";
-import VerseLookup from "./pages/VerseLookup";
-import Quiz from "./pages/Quiz";
-import About from "./pages/About";
 import Home from "./pages/Home";
+import About from "./pages/About";
+import Quiz from "./pages/Quiz";
+import VerseLookup from "./pages/VerseLookup";
 
 function App() {
   return (
     <Router>
-      <NavBar />
-      <div className="p-4">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/daily-verse" element={<DailyVerse />} />
-          <Route path="/verse-lookup" element={<VerseLookup />} />
-          <Route path="/quiz" element={<Quiz />} />
-          <Route path="/about" element={<About />} />
-        </Routes>
+      <div className="min-h-screen flex flex-col">
+        <NavBar />
+        <main className="flex-grow p-4">
+          <Routes>
+            <Route path="/" element={<Home />} />
+             <Route path="/daily-verse" element={<DailyVerse />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/quiz" element={<Quiz />} />
+            <Route path="/verse-lookup" element={<VerseLookup />} />
+          </Routes>
+        </main>
       </div>
     </Router>
   );
