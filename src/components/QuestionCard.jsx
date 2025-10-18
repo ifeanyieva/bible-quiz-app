@@ -1,30 +1,31 @@
-// src/components/QuestionCard.jsx
 import React from "react";
 
-const QuestionCard = ({ question, options, selectedAnswer, onSelect }) => {
-  return (
-    <div className="bg-white shadow-md rounded-xl p-6 w-full max-w-lg mx-auto">
-      <h2 className="text-xl font-semibold text-gray-800 mb-4">
-        {question}
-      </h2>
+export default function QuestionCard({ question, answers, onAnswer, selected, correct }) {
+  const getButtonClass = (answer) => {
+    if (!selected) return "bg-blue-600 hover:bg-blue-700";
+    if (answer === correct) return "bg-green-600";
+    if (answer === selected) return "bg-red-600";
+    return "bg-gray-400";
+  };
 
-      <div className="flex flex-col gap-3">
-        {options.map((option, index) => (
+  return (
+    <div className="bg-white shadow-md rounded-2xl p-6 text-center">
+      <h2 className="text-2xl font-semibold text-gray-800 mb-6">{question}</h2>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {answers.map((answer, index) => (
           <button
             key={index}
-            onClick={() => onSelect(option)}
-            className={`border rounded-lg px-4 py-2 text-left transition-colors duration-200 ${
-              selectedAnswer === option
-                ? "bg-blue-600 text-white"
-                : "bg-gray-100 hover:bg-blue-100"
-            }`}
+            onClick={() => onAnswer(answer)}
+            disabled={!!selected}
+            className={`text-white font-medium py-2 px-4 rounded-lg transition duration-200 ${getButtonClass(
+              answer
+            )}`}
           >
-            {option}
+            {answer}
           </button>
         ))}
       </div>
     </div>
   );
-};
-
-export default QuestionCard;
+}
