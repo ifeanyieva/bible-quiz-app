@@ -4,14 +4,14 @@ import QuizControls from "../components/QuizControls";
 import ScoreBoard from "../components/ScoreBoard";
 
 export default function Quiz() {
-  const [userAnswers, setUserAnswers] = useState([]);
   const [current, setCurrent] = useState(0);
   const [score, setScore] = useState(0);
-  const [showScore, setShowScore] = useState(false);
   const [selected, setSelected] = useState(null);
   const [isLocked, setIsLocked] = useState(false);
+  const [showScore, setShowScore] = useState(false);
+  const [userAnswers, setUserAnswers] = useState([]);
 
-  // ✅ Bible quiz questions (main questions)
+  // ✅ Pre-loaded Bible quiz questions
   const questions = [
     {
       question: "Who led the Israelites out of Egypt?",
@@ -37,41 +37,6 @@ export default function Quiz() {
       question: "Who denied Jesus three times?",
       correct_answer: "Peter",
       answers: ["Judas", "John", "Thomas", "Peter"],
-    },
-    {
-      question: "What did God create on the first day?",
-      correct_answer: "Light",
-      answers: ["Man", "Animals", "Light", "Heaven"],
-    },
-    {
-      question: "What is the shortest verse in the Bible?",
-      correct_answer: "Jesus wept.",
-      answers: [
-        "God is love.",
-        "Jesus wept.",
-        "The Lord is good.",
-        "Fear not.",
-      ],
-    },
-    {
-      question: "How many days did God take to create the world?",
-      correct_answer: "6 days",
-      answers: ["7 days", "6 days", "5 days", "8 days"],
-    },
-    {
-      question: "Who built the ark?",
-      correct_answer: "Noah",
-      answers: ["Moses", "Noah", "Elijah", "Abraham"],
-    },
-    {
-      question: "What was the first miracle of Jesus?",
-      correct_answer: "Turning water into wine",
-      answers: [
-        "Healing the blind man",
-        "Feeding the 5000",
-        "Turning water into wine",
-        "Walking on water",
-      ],
     },
   ];
 
