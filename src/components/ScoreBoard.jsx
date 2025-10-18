@@ -1,17 +1,51 @@
-// src/components/ScoreBoard.jsx
 import React from "react";
 
-const ScoreBoard = ({ score, current, total }) => {
+export default function ScoreBoard({ score, total, restart, questions, userAnswers }) {
   return (
-    <div className="flex justify-between items-center bg-white shadow-md rounded-lg px-6 py-3 w-full max-w-lg mb-4">
-      <p className="text-blue-700 font-semibold">
-        Score: <span className="font-bold">{score}</span>
+    <div className="text-center">
+      <h2 className="text-2xl font-bold text-green-700 mb-3">Quiz Complete!</h2>
+      <p className="text-lg text-gray-700 mb-4">
+        You scored{" "}
+        <span className="font-semibold text-blue-600">
+          {score}
+        </span>{" "}
+        out of {total}
       </p>
-      <p className="text-gray-600">
-        Question {current} / {total}
-      </p>
+
+      {/* Detailed Summary */}
+      <div className="text-left bg-gray-50 rounded-lg p-4 max-h-96 overflow-y-auto">
+        <h3 className="font-semibold text-gray-800 mb-2">Review Your Answers:</h3>
+        <ul className="space-y-3">
+          {questions.map((q, index) => {
+            const isCorrect = userAnswers[index] === q.correct_answer;
+            return (
+              <li key={index} className="border-b pb-2">
+                <p className="font-medium text-gray-900">
+                  {index + 1}. {q.question}
+                </p>
+                <p className={`mt-1 ${isCorrect ? "text-green-600" : "text-red-600"}`}>
+                  Your answer: {userAnswers[index] || "No answer"}
+                </p>
+                {!isCorrect && (
+                  <p className="text-gray-700">
+                    Correct answer:{" "}
+                    <span className="font-semibold text-green-700">
+                      {q.correct_answer}
+                    </span>
+                  </p>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+
+      <button
+        onClick={restart}
+        className="mt-6 bg-blue-600 hover:bg-blue-700 text-white py-2 px-5 rounded-lg font-medium transition duration-200"
+      >
+        Restart Quiz
+      </button>
     </div>
   );
-};
-
-export default ScoreBoard;
+}
