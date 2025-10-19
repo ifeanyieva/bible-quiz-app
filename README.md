@@ -21,7 +21,7 @@ React, Tailwind CSS, API.Bible, Vite
 4. Run `npm run dev`
 
 ## 🌐 Live Demo
-👉 https://your-vercel-link.vercel.app
+👉 https://bible-quiz-app-nine.vercel.app
 
 ## 👨‍💻 Developer
-Built with ❤️ by [Your Name]
+Built with React + Tailwind CSS ❤️ by Evaristus Ilomuanya
