@@ -18,7 +18,6 @@ const VerseLookupForm = () => {
     setVerse(null);
 
     try {
-      // Convert "John 3:16" → "JHN.3.16"
       const formattedRef = reference
         .trim()
         .toUpperCase()
@@ -46,35 +45,44 @@ const VerseLookupForm = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto bg-white p-6 mt-10 shadow-md rounded-2xl">
-      <h2 className="text-2xl font-bold text-blue-700 mb-4 text-center">
+    <div className="max-w-2xl mx-auto bg-white p-6 sm:p-8 mt-10 shadow-lg rounded-2xl border border-gray-100">
+      {/* Heading */}
+      <h2 className="text-xl sm:text-2xl font-bold text-blue-700 mb-6 text-center">
         🔍 Search Bible Verse
       </h2>
 
-      <form onSubmit={handleSearch} className="flex gap-2 justify-center mb-4">
+      {/* Form */}
+      <form
+        onSubmit={handleSearch}
+        className="flex flex-col sm:flex-row items-center gap-3 justify-center mb-6 px-2 sm:px-0"
+      >
         <input
           type="text"
           value={reference}
           onChange={(e) => setReference(e.target.value)}
           placeholder='Enter verse (e.g. "John 3:16")'
-          className="border border-gray-300 rounded-lg px-3 py-2 w-2/3 focus:ring-2 focus:ring-blue-400 outline-none"
+          className="border border-gray-300 rounded-md px-3 py-2 sm:py-3 w-full sm:w-2/3 md:w-3/4 focus:ring-2 focus:ring-blue-400 outline-none text-sm sm:text-base"
         />
         <button
           type="submit"
-          className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+          className="bg-blue-600 text-white font-medium py-2 sm:py-3 px-5 sm:px-6 rounded-md hover:bg-blue-700 transition duration-200 w-full sm:w-auto"
         >
           Search
         </button>
       </form>
 
-      {loading && <p className="text-center text-gray-500">Loading...</p>}
-      {error && <p className="text-center text-red-600">{error}</p>}
+      {/* Feedback */}
+      {loading && <p className="text-center text-gray-500 text-sm sm:text-base">Loading...</p>}
+      {error && <p className="text-center text-red-600 text-sm sm:text-base">{error}</p>}
 
+      {/* Verse result */}
       {verse && (
-        <div className="text-center">
-          <h3 className="font-semibold text-lg mb-2">{verse.reference}</h3>
+        <div className="text-center mt-6 px-2 sm:px-0">
+          <h3 className="font-semibold text-lg sm:text-xl mb-3 text-gray-800">
+            {verse.reference}
+          </h3>
           <p
-            className="text-gray-700 italic"
+            className="text-gray-700 italic text-sm sm:text-base leading-relaxed"
             dangerouslySetInnerHTML={{ __html: verse.content }}
           />
         </div>

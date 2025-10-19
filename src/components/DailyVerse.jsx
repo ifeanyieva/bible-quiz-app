@@ -8,7 +8,6 @@ const DailyVerse = () => {
   const API_KEY = import.meta.env.VITE_BIBLE_API_KEY;
   const BIBLE_ID = "de4e12af7f28f599-02"; // KJV
 
-  // A list of references we can pick from (to simulate daily/random verse)
   const sampleReferences = [
     "JHN.3.16",
     "PSA.23.1",
@@ -54,19 +53,30 @@ const DailyVerse = () => {
   }, []);
 
   return (
-    <div className="max-w-2xl mx-auto bg-white p-6 mt-10 shadow-md rounded-2xl">
-      <h2 className="text-2xl font-bold text-center text-blue-700 mb-4">
+    <div className="max-w-2xl mx-auto bg-white p-4 sm:p-6 md:p-10 mt-8 sm:mt-12 shadow-md rounded-2xl transition-all duration-300">
+      <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-center text-blue-700 mb-4 sm:mb-6">
         📖 Verse of the Day
       </h2>
 
-      {loading && <p className="text-center text-gray-500">Loading...</p>}
-      {error && <p className="text-center text-red-600">{error}</p>}
+      {loading && (
+        <p className="text-center text-gray-500 text-sm sm:text-base md:text-lg">
+          Loading...
+        </p>
+      )}
+
+      {error && (
+        <p className="text-center text-red-600 text-sm sm:text-base md:text-lg px-2">
+          {error}
+        </p>
+      )}
 
       {verse && (
         <div className="text-center">
-          <h3 className="font-semibold text-lg mb-2">{verse.reference}</h3>
+          <h3 className="font-semibold text-base sm:text-lg md:text-xl mb-2 text-gray-800">
+            {verse.reference}
+          </h3>
           <p
-            className="text-gray-700 italic"
+            className="text-gray-700 italic text-sm sm:text-base md:text-lg leading-relaxed sm:leading-loose px-2 sm:px-4"
             dangerouslySetInnerHTML={{ __html: verse.content }}
           />
         </div>

@@ -72,7 +72,7 @@ export default function Quiz() {
   };
 
   return (
-    <div className="max-w-xl mx-auto mt-10 p-6 bg-white rounded-2xl shadow-md">
+    <div className="max-w-3xl mx-auto mt-10 p-4 sm:p-6 md:p-8 bg-white rounded-2xl shadow-lg transition-all duration-300">
       {!showScore ? (
         <>
           <QuestionCard
@@ -82,12 +82,14 @@ export default function Quiz() {
             selected={selected}
             correct={questions[current].correct_answer}
           />
-          <QuizControls
-            current={current + 1}
-            total={questions.length}
-            onNext={handleNext}
-            isLocked={isLocked}
-          />
+          <div className="mt-6 sm:mt-8">
+            <QuizControls
+              current={current + 1}
+              total={questions.length}
+              onNext={handleNext}
+              isLocked={isLocked}
+            />
+          </div>
         </>
       ) : (
         <ScoreBoard
