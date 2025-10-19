@@ -7,6 +7,7 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Quiz from "./pages/Quiz";
 import VerseLookup from "./pages/VerseLookup";
+import Footer from "./components/Footer";
 import "./App.css";
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
             <Route path="/verse-lookup" element={<VerseLookup />} />
           </Routes>
         </main>
+        <Footer/>
       </div>
     </Router>
   );
